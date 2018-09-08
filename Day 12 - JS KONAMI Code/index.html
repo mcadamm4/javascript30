@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>KONAMI Code</title>
+        <script type="text/javascript" src="http://www.cornify.com/js/cornify.js">
+
+        </script>
+    </head>
+    <body>
+        <p>Try typing the secret code...'konami'</p>
+
+        <style>
+            body {
+                color: white;
+                text-align: center;
+                background: #193569;
+            }
+        </style>
+
+        <script type="text/javascript">
+            const pressed = [];
+            const secret_code = 'konami';
+
+            function isSecretCode(){
+                if(pressed.join('').toLowerCase().includes(secret_code)) {
+                    console.log('Konami code entered');
+                    cornify_add();
+                }
+            }
+
+            window.addEventListener('keyup', (e) => {
+                pressed.push(e.key);
+                pressed.splice(-secret_code.length-1, pressed.length-secret_code.length);
+                isSecretCode();
+            });
+        </script>
+    </body>
+</html>
