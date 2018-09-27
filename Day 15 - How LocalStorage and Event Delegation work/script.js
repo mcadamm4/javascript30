@@ -1,3 +1,6 @@
+/*jslint es6 */
+"use strict";
+
 const addItems = document.querySelector('.add-items');
 const itemsList = document.querySelector('.plates');
 // Check local sotrage for values, else empty
@@ -15,8 +18,6 @@ function addItem(e) {
     localStorage.setItem('items', JSON.stringify(items));
     this.reset();
 }
-
-
 function populateList(plates = [], plateList) {
     plateList.innerHTML = plates.map((plate, i) => {
         return `
