@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -11,7 +10,38 @@
     </div>
 
     <script type="text/javascript">
-      window.speechRecognition = window.SpeechRecogniton || window.webkitSpeechRecogniton;
+      window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      const recognition = new SpeechRecognition();
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+
+      let p = document.createElement('p');
+      const words = document.querySelector('.words');
+
+
+      recognition.addEventListener('result', e => {
+        const transcript = [...e.results]
+          .map(result => result[0])
+          .map(result => result.transcript)
+          .join('');
+
+        p.textContent = transcript;
+        if(e.results[0].isFinal) {
+          p = document.createElement('p');
+          words.appendChild(p);
+
+          if(transcript.toLowerCase().includes('go to ')) {
+            const split = transcript.split(' ');
+            const site = split[split.length-1];
+            var redirectWindow = window.open(`http://${site}.com`, '_blank');
+            redirectWindow.location;
+          }
+        };
+      });
+
+      recognition.addEventListener('end', recognition.start);
+      recognition.start();
     </script>
 
     <style>
@@ -46,7 +76,7 @@
         left: 30px;
         bottom: 0;
         border: 1px solid;
-        border-color: transparent #efe4e4; 
+        border-color: transparent #efe4e4;
       }
     </style>
   </body>
